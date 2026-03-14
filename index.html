@@ -274,9 +274,11 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 @keyframes fu { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 @media(max-width: 800px) {
-  nav { padding: 16px 24px; }
-  .npills { display: none; }
-  section { padding: 80px 24px; }
+  nav { padding: 16px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .npills { display: flex; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none; }
+  .npills::-webkit-scrollbar { display: none; }
+  .npills li { flex-shrink: 0; }
+  section { padding: 140px 24px 80px; }
   .ag { grid-template-columns: 1fr; gap: 40px; }
   .hstats { gap: 20px; }
   footer { flex-direction: column; gap: 12px; text-align: center; }
