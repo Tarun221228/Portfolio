@@ -274,11 +274,34 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 @keyframes fu { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 @media(max-width: 800px) {
-  nav { padding: 16px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
-  .npills { display: flex; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none; }
-  .npills::-webkit-scrollbar { display: none; }
-  .npills li { flex-shrink: 0; }
-  section { padding: 140px 24px 80px; }
+  nav { padding: 16px 24px; position: relative; }
+  .logo { flex: 1; }
+  /* Hamburger Button */
+  .hamburger {
+    display: flex; flex-direction: column; gap: 5px; background: transparent; border: none;
+    cursor: none; padding: 10px; z-index: 200; position: relative;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px; background: var(--tx); border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--c); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--c); }
+  
+  /* Mobile Menu Overlay */
+  .npills {
+    position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,7,10,0.95);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-bdr);
+    flex-direction: column; align-items: stretch; padding: 0; margin: 0;
+    max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .npills.open { max-height: 400px; padding: 16px 24px; }
+  .npills li { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .npills li:last-child { border-bottom: none; }
+  .npills button { width: 100%; text-align: left; padding: 16px 0; border-radius: 0; background: transparent !important; border: none !important; }
+  
+  section { padding: 100px 24px 60px; }
   .ag { grid-template-columns: 1fr; gap: 40px; }
   .hstats { gap: 20px; }
   footer { flex-direction: column; gap: 12px; text-align: center; }
@@ -314,7 +337,7 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 
 <!-- ══ HOME ══ -->
 <div class="page" id="pg-home">
-  <nav><div class="logo">tarun<em>://</em>home</div><ul class="npills">
+  <nav><div class="logo">tarun<em>://</em>home</div><button class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button><ul class="npills">
     <li><button onclick="go('about')">About</button></li>
     <li><button onclick="go('skills')">Skills</button></li>
     <li><button onclick="go('experience')">Experience</button></li>
@@ -343,7 +366,7 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 
 <!-- ══ ABOUT ══ -->
 <div class="page" id="pg-about">
-  <nav><div class="logo">tarun<em>://</em>about</div><ul class="npills">
+  <nav><div class="logo">tarun<em>://</em>about</div><button class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button><ul class="npills">
     <li><button onclick="go('home')">Home</button></li>
     <li><button onclick="go('skills')">Skills</button></li>
     <li><button onclick="go('experience')">Experience</button></li>
@@ -387,7 +410,7 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 
 <!-- ══ SKILLS ══ -->
 <div class="page" id="pg-skills">
-  <nav><div class="logo">tarun<em>://</em>skills</div><ul class="npills">
+  <nav><div class="logo">tarun<em>://</em>skills</div><button class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button><ul class="npills">
     <li><button onclick="go('home')">Home</button></li>
     <li><button onclick="go('about')">About</button></li>
     <li><button onclick="go('experience')">Experience</button></li>
@@ -412,7 +435,7 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 
 <!-- ══ EXPERIENCE ══ -->
 <div class="page" id="pg-experience">
-  <nav><div class="logo">tarun<em>://</em>experience</div><ul class="npills">
+  <nav><div class="logo">tarun<em>://</em>experience</div><button class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button><ul class="npills">
     <li><button onclick="go('home')">Home</button></li>
     <li><button onclick="go('about')">About</button></li>
     <li><button onclick="go('skills')">Skills</button></li>
@@ -440,7 +463,7 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 
 <!-- ══ PROJECTS ══ -->
 <div class="page" id="pg-projects">
-  <nav><div class="logo">tarun<em>://</em>projects</div><ul class="npills">
+  <nav><div class="logo">tarun<em>://</em>projects</div><button class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button><ul class="npills">
     <li><button onclick="go('home')">Home</button></li>
     <li><button onclick="go('about')">About</button></li>
     <li><button onclick="go('skills')">Skills</button></li>
@@ -482,7 +505,7 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 
 <!-- ══ CONTACT ══ -->
 <div class="page" id="pg-contact">
-  <nav><div class="logo">tarun<em>://</em>contact</div><ul class="npills">
+  <nav><div class="logo">tarun<em>://</em>contact</div><button class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button><ul class="npills">
     <li><button onclick="go('home')">Home</button></li>
     <li><button onclick="go('about')">About</button></li>
     <li><button onclick="go('skills')">Skills</button></li>
@@ -511,6 +534,13 @@ footer { padding: 32px 48px; display: flex; align-items: center; justify-content
 <script>
 (function(){
 'use strict';
+
+// ── MOBILE MENU TOGGLE ───────────────────────────────
+window.toggleMenu = function(btn) {
+  btn.classList.toggle('open');
+  const menu = btn.nextElementSibling;
+  menu.classList.toggle('open');
+};
 
 // ── CUSTOM CURSOR ────────────────────────────────────
 const CUR = document.getElementById('CUR');
@@ -729,6 +759,12 @@ function hidePageElements(pageEl) {
 window.go = function(to) {
   if (busy || to === currentPage) return;
   busy = true;
+
+  // Close the mobile menu if it is open
+  document.querySelectorAll('.hamburger.open').forEach(btn => {
+    btn.classList.remove('open');
+    if (btn.nextElementSibling) btn.nextElementSibling.classList.remove('open');
+  });
 
   const oldEl = document.getElementById('pg-' + currentPage);
   const newEl = document.getElementById('pg-' + to);
